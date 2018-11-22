@@ -1,0 +1,30 @@
+# 文本词频统计注意事项
+# txt.lower()函数将.TXT文件中的大写变为小写
+# txt.replace()函数将标点替换为空格
+# 统计词频使用一个字典类型counts={}
+'''
+counts[word] = counts[word]+1
+'''
+# 单词保存在变量word中
+# 无论词是否在字典中，加入字典处理方法：
+'''
+if word in counts:
+	counts[word]=counts[word]+1
+else:
+	counts[word]=1
+'''
+# 简洁的方法：
+'''
+counts[word]=counts.get(word,0)+1
+# 表示如果word在counts中，返回word，不在，返回0
+'''
+
+# 对统计的值从高到低排序，并转换为有序的列表类型
+#使用sort()和lambda完成，并输出排名前十位的单词
+'''
+items=list(counts.items())
+# 将字典转换为记录列表
+items.sort(key=lambda x:x[1],reverse=True)
+#以记录第2列排序
+'''
+# lambda：匿名函数
