@@ -1,0 +1,861 @@
+#coding utf-8
+import csv
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+def male_Fmale():#统计男女比例
+    pr=pd.read_csv("hydata_swjl_0.csv")
+    pr1=pd.read_csv("hydata_swjl_1.csv",low_memory=False)
+    print("统计男女比例：")
+    man=0
+    woman=0
+    others=0
+    #统计男女比例
+    for  sex in pr['XB']:
+        if sex=='男':
+            man+=1
+        elif sex=='女':
+            woman+=1
+        else:
+            others+=1
+
+    for  i in pr1['XB']:
+        if i=='男':
+            man+=1
+        elif i=='女':
+            woman+=1
+        else:
+            others+=1
+    #绘制饼状图
+    print('男女比例为：{}:1'.format((man%woman)))
+    print()
+
+    labels=['MALE','FEMALE','OTHERS']
+    values=[man,woman,others]
+    colors=['y','m','b']
+    explode=[0,0.1,0]
+    plt.title("Male to female ratio",fontsize=25)
+    plt.pie(values,labels=labels,explode=explode,colors=colors,
+            startangle = 180,
+            shadow=True,autopct='%1.1f%%')
+    plt.axis('equal')
+    plt.savefig('Male to female ratio.png')
+    plt.show()
+'''
+    print("统计年龄分布：")
+    print()
+    print('18~25年龄段人数{}，25~35年龄段人数{}，35~45年龄段人数{}，45~55年龄段人数{},其他年龄段人数{}',.format)
+    age=[]
+    for i in pr['BIRTHDAY']:
+        age.append(int((20181219-i)/10000))
+    print(age)
+    #绘制成折线图
+    plt.axis([0,1100000,0,75])
+'''
+    #print(man,woman,others)
+
+def age_Dis():#统计年龄分布
+    pr = pd.read_csv("hydata_swjl_0.csv")
+    pr1 = pd.read_csv("hydata_swjl_1.csv", low_memory=False)
+    print("统计年龄分布：")
+
+    age = []
+    for i in pr['BIRTHDAY']:
+        age.append(int((20181219 - i) / 10000))
+    for i in pr1['BIRTHDAY']:
+        age.append(int((20181219 - i) / 10000))
+    #print(age)
+    age1=[]
+    age2=[]
+    age3=[]
+    age4=[]
+    age5=[]
+    for i in age:
+        if 18<=i<25:
+            age1.append(i)
+        elif 25<=i<35:
+            age2.append(i)
+        elif 35<=i<45:
+            age3.append(i)
+        elif 45<=i<55:
+            age4.append(i)
+        else:
+            age5.append(i)
+    print('18~25年龄段人数:{}'.format(len(age1)))
+    print('25~35年龄段人数:{}'.format(len(age2)))
+    print('35~45年龄段人数:{}'.format( len(age3)))
+    print('45~55年龄段人数:{}'.format(len(age4)))
+    print('其他年龄段人数:{}'.format(len(age5)))
+    print()
+    #index=['18~25','25~35','35~45','45~55','others']
+    index1=['18~25']
+    index2= ['25~35']
+    index3= ['35~45']
+    index4= ['45~55']
+    index5= ['others']
+    #values=[len(age1),len(age2),len(age3),len(age4),len(age5)]
+    values1=[len(age1)]
+    values2 = [len(age2)]
+    values3= [len(age3)]
+    values4= [len(age4)]
+    values5= [len(age5)]
+    bar_width=0.6
+    plt.title('Age Distribution',fontsize=15)
+    plt.xlabel('Age range',color='y')
+    plt.ylabel('Total Number',color='y')
+    plt.bar(index1, values1,width=0.5, alpha=0.7)
+    plt.bar(index2, values2, width=0.5, alpha=0.7)
+    plt.bar(index3, values3, width=0.5, alpha=0.7)
+    plt.bar(index4, values4, width=0.5, alpha=0.7)
+    plt.bar(index5, values5, width=0.5, alpha=0.7)
+    #plt.grid(True)
+    plt.legend(['18~25','25~35','35~45','45~55','others'],
+               loc='best',edgecolor='b')
+    plt.savefig('Age Distribution.png')
+    plt.show()
+
+
+    # 绘制成折线图'''
+'''
+    plt.axis([0, 1100000, 0, 75])
+    plt.xlabel('People Number',color='red')
+    plt.ylabel('Peoples Name',color='red')
+    plt.title('Age Distribution',fontsize=15)
+    plt.plot(age)
+    plt.show()
+    print("折线图效果太差，因采用柱形图")
+'''
+
+def age_Dis1():#统计年龄分布，饼状图
+    pr = pd.read_csv("hydata_swjl_0.csv")
+    pr1 = pd.read_csv("hydata_swjl_1.csv", low_memory=False)
+    print("用饼状图统计年龄分布：")
+
+    age = []
+    for i in pr['BIRTHDAY']:
+        age.append(int((20181219 - i) / 10000))
+    for i in pr1['BIRTHDAY']:
+        age.append(int((20181219 - i) / 10000))
+    #print(age)
+    age1=[]
+    age2=[]
+    age3=[]
+    age4=[]
+    age5=[]
+    for i in age:
+        if 18<=i<25:
+            age1.append(i)
+        elif 25<=i<35:
+            age2.append(i)
+        elif 35<=i<45:
+            age3.append(i)
+        elif 45<=i<55:
+            age4.append(i)
+        else:
+            age5.append(i)
+    #index=['18~25','25~35','35~45','45~55','others']
+    index1=['18~25']
+    index2= ['25~35']
+    index3= ['35~45']
+    index4= ['45~55']
+    index5= ['others']
+    #values=[len(age1),len(age2),len(age3),len(age4),len(age5)]
+    values1=[len(age1)]
+    values2 = [len(age2)]
+    values3= [len(age3)]
+    values4= [len(age4)]
+    values5= [len(age5)]
+    bar_width=0.6
+    labels=['18~25','25~35','35~45','45~55','others']
+    values=[values1,values2,values3,values4,values5]
+    colors=['y','m','b','c','g']
+    explode=[0,0,0,0,0.2]
+    plt.title=('Age Distribution')
+    plt.pie(values, labels=labels, explode=explode, colors=colors,
+            startangle=45,
+            shadow=True, autopct='%1.1f%%')
+    plt.axis('equal')
+    #plt.grid(True)
+    plt.legend(loc='upper left',edgecolor='b')
+    plt.savefig('Age Distribution.png')
+    plt.show()
+    print('可以看出：18-25,25-35这两个年龄段的人是上网的主力；')
+    print('分别占据了36%和33%的高比例')
+    print()
+
+def hot_Time():#统计上网高峰时段
+    #因数据太大，只能采用柱形图
+    #思路：去掉秒与分钟，统计小时
+    pr = pd.read_csv("hydata_swjl_0.csv")
+    pr1 = pd.read_csv("hydata_swjl_1.csv", low_memory=False)
+    print('统计上网高峰时段：')
+
+    on_time=[]
+    off_time=[]
+    for i in pr['ONLINETIME']:
+        on_time.append(i)
+    for i in pr1['ONLINETIME']:
+        on_time.append(i)
+    for i in pr['OFFLINETIME']:
+        off_time.append(i)
+    for i in pr1['OFFLINETIME']:
+        off_time.append(i)
+    time1_on = []  # 0~6点
+    time2_on = []  # 6~8点
+    time3_on = []  # 8~10点
+    time4_on = []  # 10~12点
+    time5_on = []  # 12~14点
+    time6_on = []  # 14~16点
+    time7_on = []  # 16~18点
+    time8_on = []  # 18~20点
+    time9_on = []  # 20~24点
+    time_on = [] #上机时间
+    time_off=[] #下机时间
+    time1_off = []  # 0~6点
+    time2_off = []  # 6~8点
+    time3_off = []  # 8~10点
+    time4_off = []  # 10~12点
+    time5_off = []  # 12~14点
+    time6_off = []  # 14~16点
+    time7_off = []  # 16~18点
+    time8_off = []  # 18~20点
+    time9_off = []  # 20~24点
+    '''
+    print(on_time)
+    print(off_time)
+    print(len(on_time))
+    print(len(off_time))
+    '''
+
+    for i  in on_time:
+        t=0
+        t=(int(i/10000)%100)
+        time_on.append(t)
+
+    for i in off_time:
+        t=0
+        t=(int(i/10000)%100)
+        time_off.append(t)
+
+    for i in time_on:#上机时间统计
+        if 0 <=i < 6:
+            time1_on.append(i)
+        elif 6 <=i < 8:
+            time2_on.append(i)
+        elif 8 <= i < 10:
+            time3_on.append(i)
+        elif 10 <= i < 12:
+            time4_on.append(i)
+        elif 12 <= i < 14:
+            time5_on.append(i)
+        elif 14 <= i < 16:
+            time6_on.append(i)
+        elif 16 <= i < 18:
+            time7_on.append(i)
+        elif 18 <= i < 20:
+            time8_on.append(i)
+        elif 20 <= i < 24:
+            time9_on.append(i)
+        else:
+            time1_on.append('0')
+
+
+    for i in time_off:#下机时间统计
+        if 0 <=i < 6:
+            time1_off.append(i)
+        elif 6 <=i < 8:
+            time2_off.append(i)
+        elif 8 <= i < 10:
+            time3_off.append(i)
+        elif 10 <= i < 12:
+            time4_off.append(i)
+        elif 12 <= i < 14:
+            time5_off.append(i)
+        elif 14 <= i < 16:
+            time6_off.append(i)
+        elif 16 <= i < 18:
+            time7_off.append(i)
+        elif 18 <= i < 20:
+            time8_off.append(i)
+        elif 20 <= i < 24:
+            time9_off.append(i)
+        else:
+            time1_off.append('0')
+    print('上机主要时段：{}'.format(max(time1_on)))
+    print('好像大家为了上网宁愿抛弃被窝?')
+    print('下机主要时段：{}'.format(max(time_off)))
+    print('沉迷上网，茶饭不思？')
+    '''
+    index1_on = ['0~6']
+    index2_on = ['6~8']
+    index3_on = ['8~10']
+    index4_on = ['10~12']
+    index5_on = ['12~14']
+    index6_on = ['14~16']
+    index7_on = ['16~18']
+    index8_on = ['18~20']
+    index9_on = ['20~24']
+    '''
+    values1_on = [len(time1_on),len(time2_on),len(time3_on),len(time4_on),len(time5_on),
+                  len(time6_on),len(time7_on),len(time8_on),len(time9_on)]
+    values2_on = []
+    values3_on = []
+    values4_on = []
+    values5_on = []
+    values6_on = []
+    values7_on = []
+    values8_on = []
+    values9_on = []
+
+    values1_off = [len(time1_off),len(time2_off),len(time3_off),len(time4_off),
+                   len(time5_off),len(time6_off),len(time7_off),len(time8_off),len(time9_off)]
+    values2_off = []
+    values3_off = []
+    values4_off = []
+    values5_off = []
+    values6_off = []
+    values7_off = []
+    values8_off = []
+    values9_off = []
+    index=np.arange(9)
+    bw = 0.3
+    #绘制上机统计图
+#    plt.title("Peak Hours",fontsize=15)
+    plt.xlabel('Up and down time',color='blue')
+    plt.ylabel('Number of time periods',color='blue')
+    #plt.bar(index+bw, values1_on, bw, alpha=0.7)
+    plt.bar(index, values1_on, bw, alpha=0.7)
+    plt.bar(index+bw,values1_off,bw,alpha=0.7)
+    plt.bar(index+2*bw,0)
+    plt.bar(index+2*bw,0)
+    plt.bar(index+2*bw,0)
+    plt.bar(index+2*bw,0)
+    plt.bar(index+2*bw,0)
+    plt.bar(index+2*bw,0)
+    plt.bar(index+2*bw,0)
+    #plt.bar(index, values2_on, bw, alpha=0.7)
+    #plt.bar(index, values3_on, bw, alpha=0.7)
+   # plt.bar(index, values4_on, bw, alpha=0.7)
+    #plt.bar(index, values5_on, bw, alpha=0.7)
+    #plt.bar(index, values6_on, bw, alpha=0.7)
+    #plt.bar(index, values7_on, bw, alpha=0.7)
+    #plt.bar(index, values8_on, bw, alpha=0.7)
+    #plt.bar(index, values9_on, bw, alpha=0.7)
+    plt.xticks(index+1.5*bw,['0~6','6~8','8~10','10~12','12~14','14~16','16~18','18~20','20~24'])
+   # plt.bar(index1_on+bw, values1_off, bw, alpha=0.7)
+    plt.legend(['0~6','6~8','8~10','10~12','12~14','14~16','16~18','18~20','20~24'],
+               loc=2,edgecolor='b')
+    plt.savefig('Peak Hours.png')
+    plt.show()
+    print()
+def hot_Time1():#统计上网高峰时段
+    #根据数据使用折线图
+    pr = pd.read_csv("hydata_swjl_0.csv")
+    pr1 = pd.read_csv("hydata_swjl_1.csv", low_memory=False)
+    print('用折线图统计上网高峰时段：')
+
+    on_time=[]
+    off_time=[]
+    for i in pr['ONLINETIME']:
+        on_time.append(i)
+    for i in pr1['ONLINETIME']:
+        on_time.append(i)
+    for i in pr['OFFLINETIME']:
+        off_time.append(i)
+    for i in pr1['OFFLINETIME']:
+        off_time.append(i)
+    time1_on = []  # 0~6点
+    time2_on = []  # 6~8点
+    time3_on = []  # 8~10点
+    time4_on = []  # 10~12点
+    time5_on = []  # 12~14点
+    time6_on = []  # 14~16点
+    time7_on = []  # 16~18点
+    time8_on = []  # 18~20点
+    time9_on = []  # 20~24点
+    time_on = [] #上机时间
+    time_off=[] #下机时间
+    time1_off = []  # 0~6点
+    time2_off = []  # 6~8点
+    time3_off = []  # 8~10点
+    time4_off = []  # 10~12点
+    time5_off = []  # 12~14点
+    time6_off = []  # 14~16点
+    time7_off = []  # 16~18点
+    time8_off = []  # 18~20点
+    time9_off = []  # 20~24点
+
+
+    for i  in on_time:
+        t=0
+        t=(int(i/10000)%100)
+        time_on.append(t)
+
+    for i in off_time:
+        t=0
+        t=(int(i/10000)%100)
+        time_off.append(t)
+
+    for i in time_on:#上机时间统计
+        if 0 <=i < 6:
+            time1_on.append(i)
+        elif 6 <=i < 8:
+            time2_on.append(i)
+        elif 8 <= i < 10:
+            time3_on.append(i)
+        elif 10 <= i < 12:
+            time4_on.append(i)
+        elif 12 <= i < 14:
+            time5_on.append(i)
+        elif 14 <= i < 16:
+            time6_on.append(i)
+        elif 16 <= i < 18:
+            time7_on.append(i)
+        elif 18 <= i < 20:
+            time8_on.append(i)
+        elif 20 <= i < 24:
+            time9_on.append(i)
+        else:
+            time1_on.append('0')
+
+
+    for i in time_off:#下机时间统计
+        if 0 <=i < 6:
+            time1_off.append(i)
+        elif 6 <=i < 8:
+            time2_off.append(i)
+        elif 8 <= i < 10:
+            time3_off.append(i)
+        elif 10 <= i < 12:
+            time4_off.append(i)
+        elif 12 <= i < 14:
+            time5_off.append(i)
+        elif 14 <= i < 16:
+            time6_off.append(i)
+        elif 16 <= i < 18:
+            time7_off.append(i)
+        elif 18 <= i < 20:
+            time8_off.append(i)
+        elif 20 <= i < 24:
+            time9_off.append(i)
+        else:
+            time1_off.append('0')
+
+    values1_on = [len(time1_on),len(time2_on),len(time3_on),len(time4_on),len(time5_on),
+                  len(time6_on),len(time7_on),len(time8_on),len(time9_on)]
+
+
+    values1_off = [len(time1_off),len(time2_off),len(time3_off),len(time4_off),
+                   len(time5_off),len(time6_off),len(time7_off),len(time8_off),len(time9_off)]
+
+
+    #绘制上机统计图
+    #plt.title('Peak Hours_1',fontsize=15)
+    plt.xlabel('Up and down time_1',color='blue')
+    plt.ylabel('Number of time periods_1',color='blue')
+    #plt.bar(index+bw, values1_on, bw, alpha=0.7)
+    x=['0~6','6~8','8~10','10~12','12~14','14~16','16~18','18~20','20~24']
+    plt.plot(x,values1_on,label='Onlinetime',color='y',linewidth=3.0)
+    plt.plot(x,values1_off,label='Offtime',color='b',linewidth=2.0)
+    plt.plot(0,0)
+    plt.plot(0, 0)
+    plt.plot(0, 0)
+    plt.plot(0, 0)
+    plt.plot(0, 0)
+    plt.plot(0,0)
+    plt.plot(0, 0)
+    plt.plot(0, 0)
+    plt.plot(0, 0)
+
+
+    plt.grid(alpha=0.3,linestyle=':')
+    #plt.xticks()
+   # plt.legend(['0~6','6~8','8~10','10~12','12~14','14~16','16~18','18~20','20~24'],
+    #           loc=2,edgecolor='b')
+    plt.legend(loc='best')
+    plt.savefig('Peak Hours_1.png')
+    plt.show()
+    print('可以看出，折线图可以更好地反映上网的高峰时期。')
+    print('早晨上网人数较少，而到了下午，上网人数陡增')
+    print()
+
+def hot_Cafe():#统计热门网吧
+    pr=pd.read_csv('Internet_Cafe.csv')
+    count=[]#统计网吧数量
+    for i in pr['TITLE']:
+        if i !=None:
+            count.append(i)
+    print('统计热门网吧')
+    print('输出网吧的名字：')
+    print(count)
+    print('输出最热门的网吧：')
+    print(max(count))
+    print('输出最冷门的网吧：')
+    print(min(count))
+    print("请谨慎上网，保持身心健康！")
+    print()
+
+
+def Illegal_cafe():#非法经营
+    pr = pd.read_csv("hydata_swjl_0.csv")
+    pr1 = pd.read_csv("hydata_swjl_1.csv", low_memory=False)
+    print("非法经营情况：")
+    t=[]#用于记载未成年人在第几行
+    d=0
+    person_ID=[]
+    name=[]
+    age = []
+    XB=[]
+    for i in pr['BIRTHDAY']:
+        age.append(int((20181219 - i) / 10000))
+    for i in pr1['BIRTHDAY']:
+        age.append(int((20181219 - i) / 10000))
+
+    for i in pr['PERSONID']:
+        person_ID.append(i)
+    for i in pr1['PERSONID']:
+        person_ID.append(i)
+
+    for i in pr['CUSTOMERNAME']:
+        name.append(i)
+    for i in pr1['CUSTOMERNAME']:
+        name.append(i)
+
+    for i in pr['XB']:
+        XB.append(i)
+    for i in pr1['XB']:
+        XB.append(i)
+
+
+    for i in age:
+        d+=1
+        if 0<i<18:
+            t.append(d)
+
+    #print(t)
+    #绘制未成年人上网情况
+    a_15=[]
+    a_16=[]
+    a_17=[]
+    a=0
+    for i in age:
+        if i==15:
+            a_15.append(i)
+        elif i==16:
+            a_16.append(i)
+        elif i==17:
+            a_17.append(i)
+        else:
+            a=1
+    values=[len(a_15),len(a_16),len(a_17)]
+#    plt.title("Minor online situation")
+    plt.xlabel('Age',color='b')
+    plt.ylabel('Number',color='b')
+    x=['15','16','17']
+    plt.plot(x,values,label='Minor online statistics',color='b',linewidth=2.0)
+    plt.legend()
+    plt.grid(alpha=0.3, linestyle=':')
+    plt.savefig('Minor online situation.png')
+    plt.show()
+
+
+
+    little_age=[]
+    for i in age:
+        if 0<i<18:
+            little_age.append(i)
+    #print(little_age)
+    print('输出接纳未成年人上网人数：')
+    print(len(little_age))
+    print('输出最小的未成年人的年龄：')
+    print(min(little_age))
+    print("输出接纳未成年人的成年人信息:")
+    print('共{}组：'.format(len(little_age)))
+    print("姓名","性别",'上网人编号','年龄')
+    print()
+    for i in t:
+        print(name[i],XB[i],person_ID[i],age[i])
+        print()
+
+    '''
+    print(len(person_ID))
+    print()
+    print(len(name))
+    print()
+    print(len(XB))
+    
+    
+    '''
+
+
+def hobo():#流动人口分析
+    #统计上网时长
+    pr = pd.read_csv("hydata_swjl_0.csv")
+    pr1 = pd.read_csv("hydata_swjl_1.csv", low_memory=False)
+    a_id=[]
+    a_id1=[]
+    Hobo=[]#流动人口
+    t=[]#用来计数
+    d=0
+    s=0
+    for i in pr['AREAID']:
+        a_id.append(i)
+    for i in pr1['AREAID']:
+        a_id.append(i)
+    #print(a_id)
+    for i in  a_id:
+        if isinstance(i,float)==True:
+            b=0
+            d=0
+            d=i
+
+            b=i/10000
+            e=int(b)
+            a_id1.append(e)
+    #print(a_id1)
+
+    for i in a_id1:
+        s+=1
+        if i!=50:
+            Hobo.append(i)
+            t.append(s)
+    print('输出流动人后的籍贯（取前两位数）：')
+    print(Hobo)
+    print('输出流动人口数量：')
+    print(len(Hobo))
+    print('可以看出，流动人口占据了本市上网人口的一半')
+    time_long=[]#上网时长
+    time_long1=[]#上网时长小于一个小时
+    time_long3=[]#上网时长小于1~3个小时
+    time_long5=[]#上网时长小于3~5个小时
+    time_long10=[]#上网时长小于5~10个小时
+    time_long_others=[]#上网时长其他时长
+
+    on_time=[]#开始上网时间
+    off_time=[]#下机时间
+    on_time1=[]#与流动人口相对应的上网时间
+    off_time1=[]#与流动人口相对应的下机时间
+    for i in pr['ONLINETIME']:
+        on_time.append(i)
+    for i in pr1['ONLINETIME']:
+        on_time.append(i)
+    for i in pr['OFFLINETIME']:
+        off_time.append(i)
+    for i in pr1['OFFLINETIME']:
+        off_time.append(i)
+
+    for i in t:
+        on_time1.append(on_time[i])
+        off_time1.append(off_time[i])
+
+    for i in range(0,len(on_time1)):
+        time_long.append(((off_time1[i]-on_time1[i])/10000)%100)
+    for i in time_long:
+        if 0<i<=1:
+            time_long1.append(i)
+        elif 1<i<=3:
+            time_long3.append(i)
+        elif 3<i<=5:
+            time_long5.append(i)
+        elif 5<i<=10:
+            time_long10.append(i)
+        else:
+            time_long_others.append(i)
+    #print(time_long)
+#    plt.title('Statistics on the length of floating population internet')
+    plt.xlabel('Length of Internet access',color='y')
+    plt.ylabel('Number',color='y')
+    index1 = ['0~1']
+    index2 = ['1~3']
+    index3 = ['3~5']
+    index4 = ['5~10']
+    index5 = ['others']
+    # values=[len(age1),len(age2),len(age3),len(age4),len(age5)]
+    values1 = [len(time_long1)]
+    values2 = [len(time_long3)]
+    values3 = [len(time_long5)]
+    values4 = [len(time_long10)]
+    values5 = [len(time_long_others)]
+    bar_width = 0.6
+#    plt.title('Age Distribution', fontsize=15)
+    plt.xlabel('Age range', color='y')
+    plt.ylabel('Total Number', color='y')
+    plt.bar(index1, values1, width=0.5, alpha=0.7)
+    plt.bar(index2, values2, width=0.5, alpha=0.7)
+    plt.bar(index3, values3, width=0.5, alpha=0.7)
+    plt.bar(index4, values4, width=0.5, alpha=0.7)
+    plt.bar(index5, values5, width=0.5, alpha=0.7)
+    plt.grid(alpha=0.3,linestyle=':')
+    plt.legend(['0~1','1~3','3~5','5~10','others'],loc='best',edgecolor='b')
+    plt.savefig('Age Distribution.png')
+    plt.show()
+   # print(int(areaid[4]/10000))
+    print('由图可以看出：')
+    print('流动人口上网时间普遍较长')
+    print('在1~3个小时范围是最长的')
+
+
+def hobo1():#流动人口分析
+    #统计上网的时间
+    pr = pd.read_csv("hydata_swjl_0.csv")
+    pr1 = pd.read_csv("hydata_swjl_1.csv", low_memory=False)
+    a_id=[]
+    a_id1=[]
+    Hobo=[]#流动人口
+    t=[]#用来计数
+    d=0
+    s=0
+    for i in pr['AREAID']:
+        a_id.append(i)
+    for i in pr1['AREAID']:
+        a_id.append(i)
+    #print(a_id)
+    for i in  a_id:
+        if isinstance(i,float)==True:
+            b=0
+            d=0
+            d=i
+
+            b=i/10000
+            e=int(b)
+            a_id1.append(e)
+    #print(a_id1)
+
+    for i in a_id1:
+        s+=1
+        if i!=50:
+            Hobo.append(i)
+            t.append(s)
+    on_time = []
+    off_time = []
+    for i in pr['ONLINETIME']:
+        on_time.append(i)
+    for i in pr1['ONLINETIME']:
+        on_time.append(i)
+    for i in pr['OFFLINETIME']:
+        off_time.append(i)
+    for i in pr1['OFFLINETIME']:
+        off_time.append(i)
+    time1_on = []  # 0~6点
+    time2_on = []  # 6~8点
+    time3_on = []  # 8~10点
+    time4_on = []  # 10~12点
+    time5_on = []  # 12~14点
+    time6_on = []  # 14~16点
+    time7_on = []  # 16~18点
+    time8_on = []  # 18~20点
+    time9_on = []  # 20~24点
+    time_on = []  # 上机时间
+    time_off = []  # 下机时间
+    time1_off = []  # 0~6点
+    time2_off = []  # 6~8点
+    time3_off = []  # 8~10点
+    time4_off = []  # 10~12点
+    time5_off = []  # 12~14点
+    time6_off = []  # 14~16点
+    time7_off = []  # 16~18点
+    time8_off = []  # 18~20点
+    time9_off = []  # 20~24点
+    time_on1=[]#统计流动人口上机时间
+    time_off1=[]#统计流动人口下机时间
+    for i in on_time:
+        q = 0
+        q = (int(i / 10000) % 100)
+        time_on.append(q)
+
+    for i in off_time:
+        q = 0
+        q = (int(i / 10000) % 100)
+        time_off.append(q)
+    for  i in  t:
+        time_on1.append(time_on[i])
+        time_off1.append(time_off[i])
+    for i in time_on1:  # 上机时间统计
+        if 0 <= i < 6:
+            time1_on.append(i)
+        elif 6 <= i < 8:
+            time2_on.append(i)
+        elif 8 <= i < 10:
+            time3_on.append(i)
+        elif 10 <= i < 12:
+            time4_on.append(i)
+        elif 12 <= i < 14:
+            time5_on.append(i)
+        elif 14 <= i < 16:
+            time6_on.append(i)
+        elif 16 <= i < 18:
+            time7_on.append(i)
+        elif 18 <= i < 20:
+            time8_on.append(i)
+        elif 20 <= i < 24:
+            time9_on.append(i)
+        else:
+            time1_on.append('0')
+
+    for i in time_off1:  # 下机时间统计
+        if 0 <= i < 6:
+            time1_off.append(i)
+        elif 6 <= i < 8:
+            time2_off.append(i)
+        elif 8 <= i < 10:
+            time3_off.append(i)
+        elif 10 <= i < 12:
+            time4_off.append(i)
+        elif 12 <= i < 14:
+            time5_off.append(i)
+        elif 14 <= i < 16:
+            time6_off.append(i)
+        elif 16 <= i < 18:
+            time7_off.append(i)
+        elif 18 <= i < 20:
+            time8_off.append(i)
+        elif 20 <= i < 24:
+            time9_off.append(i)
+        else:
+            time1_off.append('0')
+
+    values1_on = [len(time1_on), len(time2_on), len(time3_on), len(time4_on), len(time5_on),
+                  len(time6_on), len(time7_on), len(time8_on), len(time9_on)]
+
+    values1_off = [len(time1_off), len(time2_off), len(time3_off), len(time4_off),
+                   len(time5_off), len(time6_off), len(time7_off), len(time8_off), len(time9_off)]
+
+    index = np.arange(9)
+    bw = 0.35
+#    plt.title("Upper and lower machine time statistics")
+    plt.xlabel('Time period', color='blue')
+    plt.ylabel('Number', color='blue')
+    # plt.bar(index+bw, values1_on, bw, alpha=0.7)
+    plt.bar(index, values1_on, bw, alpha=0.7)
+    plt.bar(index + bw, values1_off, bw, alpha=0.7,color='y')
+    plt.bar(index + 2 * bw, 0)
+    plt.bar(index + 2 * bw, 0)
+    plt.bar(index + 2 * bw, 0)
+    plt.bar(index + 2 * bw, 0)
+    plt.bar(index + 2 * bw, 0)
+    plt.bar(index + 2 * bw, 0)
+    plt.bar(index + 2 * bw, 0)
+    plt.xticks(index + 2 * bw, ['0~6', '6~8', '8~10', '10~12', '12~14', '14~16', '16~18', '18~20', '20~24'])
+    # plt.bar(index1_on+bw, values1_off, bw, alpha=0.7)
+    plt.legend(['0~6', '6~8', '8~10', '10~12', '12~14', '14~16', '16~18', '18~20', '20~24'],
+               loc=2, edgecolor='b')
+    plt.savefig('Upper and lower machine time statistics.png')
+    plt.show()
+    print('流动人口上网的高峰期在12~24点')
+    print('流动人口下机的高峰期在夜晚')
+    print()
+
+
+
+if __name__=="__main__":
+    male_Fmale()#男女比例
+    age_Dis()#年龄分布
+    age_Dis1()#年龄分布饼状图
+    hot_Time()#上网时间段
+    hot_Time1()#上网时间段折线图版本
+    hot_Cafe()#统计热门网吧
+    Illegal_cafe()#非法经营情况
+    hobo()
+    hobo1()
